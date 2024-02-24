@@ -5,13 +5,22 @@ from .init_files import init_file
 
 fields = ["Task", "Optimistic", "Nominal", "Pessimistic"]
 
-def add_input_data(task: str, optimistic: str, nominal: str, pessimistic: str) -> None:
+def add_input_data(task: str, optimistic: str, nominal: str, pessimistic: str) -> int:
+    try:
+        float(optimistic)
+        float(nominal)
+        float(pessimistic)
+    except ValueError:
+        print("Parametrs for 'add' should be float or integer")
+        return 0
     try:
         with open("data/input_data.csv", "a") as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=fields)
             writer.writerow({'Task': task, 'Optimistic': optimistic, "Nominal": nominal, "Pessimistic": pessimistic})
     except IOError:
         print("Error: failed open file while add data to input_data")
+
+    return 1
 
 def del_input_data(task: str) -> None:
     buffer_input_data = bufferize("data/input_data.csv")
