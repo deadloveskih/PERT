@@ -9,7 +9,10 @@ def main() -> None:
     while((user_input := input("pert: ")) != "quit"):
         match user_input.split(" "):
             case ["add", *data]:
-                add_data(data[0], data[1], data[2], data[3])
+                if len(data) == 4:
+                    add_data(data[0], data[1], data[2], data[3])
+                else:
+                    print("using: add 'task_name' (float) (float) (float)")
             case ["del", task_name]:
                 del_data(task_name)
             case ["print", task_name]:
