@@ -1,12 +1,14 @@
+from functools import singledispatchmethod
+from task import Task
 import commands
-
 
 class PERT:
 
     __singleton = None
 
     def __init__(self) -> None:
-        self.__cache = []
+        self.__cache = None
+        self.show_data()
     
     @classmethod
     def getInstance(cls) -> object:
@@ -15,28 +17,43 @@ class PERT:
 
         return cls.__singleton
 
-    def add_data(self, task_name: str, optimistic: str, nominal: str, pessimistic: str) -> dict:
-        task = commands.add_data(task_name, optimistic, nominal, pessimistic)
-        self.__cache.append(task)
+    @singledispatchmethod
+    def add_data(self, task_name: str, predecessor: str, optimistic: str, nominal: str, pessimistic: str) -> Task:
+        task = commands.add_data(task_name, predecessor, optimistic, nominal, pessimistic)
+        self.__cache[task_name] = task
+
+        return task
+    
+    @add_data.register(Task)
+    def _(self, task: Task) -> Task:
+        task = commands.add_data(
+                                    task["task_name"],
+                                    task["predecessor"],
+                                    task["optimistic"],
+                                    task["nominal"],
+                                    task["pessimistic"],
+                                 )
+        
+        self.__cache[task.task_name] = task
 
         return task
 
     def del_data(self, task_name: str) -> None:
-        for task in self.__cache:
-            if task["Task"] == task_name:
-                self.__cache.remove(task)
+        self.__cache.pop(task_name)
             
         return commands.del_data(task_name)
 
-    def print_data(self, task_name: str) -> dict:
-        for task in self.__cache:
-            if task["Task"] == task_name:
-                return task
+    def print_data(self, task_name: str) -> Task:
+        return self.__cache.get(task_name, "Not found")
             
-        return commands.print_data(task_name)
+        #return commands.print_data(task_name)
 
-    def show_data(self) -> list:
-        return commands.show_data()
+    def show_data(self) -> dict:
+        if not self.__cache:
+            self.__cache = commands.show_data()
+            return self.__cache
+        
+        return self.__cache
 
     def summarize(self) -> dict:
-        return  commands.summarize()
+        return commands.summarize()

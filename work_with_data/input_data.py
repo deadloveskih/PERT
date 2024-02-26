@@ -2,10 +2,9 @@ import csv
 import os
 from .bufferize import bufferize
 from .init_files import init_file
+from .fields import input_fields
 
-fields = ["Task", "Optimistic", "Nominal", "Pessimistic"]
-
-def add_input_data(task: str, optimistic: str, nominal: str, pessimistic: str) -> int:
+def add_input_data(task: str, predecessor: str, optimistic: str, nominal: str, pessimistic: str) -> int:
     try:
         float(optimistic)
         float(nominal)
@@ -15,8 +14,8 @@ def add_input_data(task: str, optimistic: str, nominal: str, pessimistic: str) -
         return 0
     try:
         with open("data/input_data.csv", "a") as csv_file:
-            writer = csv.DictWriter(csv_file, fieldnames=fields)
-            writer.writerow({'Task': task, 'Optimistic': optimistic, "Nominal": nominal, "Pessimistic": pessimistic})
+            writer = csv.DictWriter(csv_file, fieldnames=input_fields)
+            writer.writerow({'Task': task, "Predecessor": predecessor, 'Optimistic': optimistic, "Nominal": nominal, "Pessimistic": pessimistic})
     except IOError:
         print("Error: failed open file while add data to input_data")
 
@@ -29,6 +28,6 @@ def del_input_data(task: str) -> None:
             buffer_input_data.remove(item)
     try:
         os.remove("data/input_data.csv")
-        assert init_file("data/input_data.csv", fields, buffer_input_data)
+        assert init_file("data/input_data.csv", input_fields, buffer_input_data)
     except OSError:
         print("Error: failed del data from input_data")

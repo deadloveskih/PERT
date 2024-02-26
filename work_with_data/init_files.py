@@ -11,7 +11,7 @@ def init_file(csv_path: str, fields: list, *args) -> None:
                     writer = csv.DictWriter(csv_file, fieldnames=fields)
                     writer.writerows(args[0])
         except IOError:
-            print("Error: failed creating files")
+            print("Error: failed creating file")
             return 0        
     
     return 1

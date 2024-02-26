@@ -1,7 +1,6 @@
-from work_with_data import init_file
+from work_with_data import init_file, input_fields, output_fields
 from PERT import PERT
 from pprint import pprint
-
 
 def help() -> None:
     print("MIT License Copyright (c) 2024 deadloveskih", end="\n\n")
@@ -24,19 +23,18 @@ def help() -> None:
     print("\tusing: summarize", end="\n\n")
     print("\tprint summarize time and deviation of all tasks", end="\n\n")
 
-
 def main() -> None:
-    assert init_file("data/input_data.csv", ["Task", "Optimistic", "Nominal", "Pessimistic"])
-    assert init_file("data/output_data.csv", ["Task", "Time", "Deviation"])
+    assert init_file("data/input_data.csv", input_fields)
+    assert init_file("data/output_data.csv", output_fields)
     pert = PERT.getInstance()
 
     while((user_input := input("pert: ")) != "quit"):
         match user_input.split(" "):
             case ["add", *data]:
-                if len(data) == 4:
-                    pert.add_data(data[0], data[1], data[2], data[3])
+                if len(data) == 5:
+                    pert.add_data(data[0], data[1], data[2], data[3], data[4])
                 else:
-                    print("using: add 'task_name' (float) (float) (float)")
+                    print("using: add 'task_name' 'predecessor/another' (float) (float) (float)")
             case ["del", task_name]:
                 pert.del_data(task_name)
             case ["print", task_name]:
@@ -49,8 +47,7 @@ def main() -> None:
                 help()
             case _:
                 print(f"Undefined command: {user_input}")
-                
 
-
+  
 if __name__ == "__main__":
     main();
