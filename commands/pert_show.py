@@ -1,13 +1,12 @@
-import pprint
 from work_with_data import *
 
-def show_data() -> None:
+def show_data() -> list:
     input_data_buf = bufferize("data/input_data.csv")
     output_data_buf = bufferize("data/output_data.csv")
 
     all_data = list(zip(input_data_buf, output_data_buf))
+    tasks = []
     for task in all_data:
-        print("_"*40)
-        task = task[0] | task[1]
-        pprint.pprint(task, width=40)
-        print("_"*40)
+        tasks.append(task[0] | task[1])
+
+    return tasks

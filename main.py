@@ -1,5 +1,6 @@
-from commands import *
 from work_with_data import init_file
+from PERT import PERT
+from pprint import pprint
 
 
 def help() -> None:
@@ -27,22 +28,23 @@ def help() -> None:
 def main() -> None:
     assert init_file("data/input_data.csv", ["Task", "Optimistic", "Nominal", "Pessimistic"])
     assert init_file("data/output_data.csv", ["Task", "Time", "Deviation"])
+    pert = PERT.getInstance()
 
     while((user_input := input("pert: ")) != "quit"):
         match user_input.split(" "):
             case ["add", *data]:
                 if len(data) == 4:
-                    add_data(data[0], data[1], data[2], data[3])
+                    pert.add_data(data[0], data[1], data[2], data[3])
                 else:
                     print("using: add 'task_name' (float) (float) (float)")
             case ["del", task_name]:
-                del_data(task_name)
+                pert.del_data(task_name)
             case ["print", task_name]:
-                print_data(task_name)
+                pprint(pert.print_data(task_name), width=40)
             case ["show"]:
-                show_data()
+                pprint(pert.show_data(), width=40)
             case ["summarize"]:
-                summarize()
+                pprint(pert.summarize(), width=40)
             case ["help"]:
                 help()
             case _:
