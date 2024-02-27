@@ -8,14 +8,14 @@ def add_output_data(task: str, time: str, deviation: str) -> None:
     try:
         with open("PERT/data/output_data.csv", "a") as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=output_fields)
-            writer.writerow({'Task': task, 'Time': time, "Deviation": deviation})
+            writer.writerow({'task_name': task, 'time': time, "deviation": deviation})
     except IOError:
         print("Error: failed open file while add data to output_data")
 
 def del_output_data(task: str) -> None:
     buffer_input_data = bufferize("PERT/data/output_data.csv")
     for item in buffer_input_data:
-        if item["Task"] == task:
+        if item["task_name"] == task:
             buffer_input_data.remove(item)
     try:
         os.remove("PERT/data/output_data.csv")

@@ -6,16 +6,9 @@ from .fields import input_fields
 
 def add_input_data(task: str, predecessor: str, optimistic: str, nominal: str, pessimistic: str) -> int:
     try:
-        float(optimistic)
-        float(nominal)
-        float(pessimistic)
-    except ValueError:
-        print("Parametrs for 'add' should be float or integer")
-        return 0
-    try:
         with open("PERT/data/input_data.csv", "a") as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=input_fields)
-            writer.writerow({'Task': task, "Predecessor": predecessor, 'Optimistic': optimistic, "Nominal": nominal, "Pessimistic": pessimistic})
+            writer.writerow({'task_name': task, "predecessor": predecessor, 'optimistic': optimistic, "nominal": nominal, "pessimistic": pessimistic})
     except IOError:
         print("Error: failed open file while add data to input_data")
 
@@ -24,7 +17,7 @@ def add_input_data(task: str, predecessor: str, optimistic: str, nominal: str, p
 def del_input_data(task: str) -> None:
     buffer_input_data = bufferize("PERT/data/input_data.csv")
     for item in buffer_input_data:
-        if item["Task"] == task:
+        if item["task_name"] == task:
             buffer_input_data.remove(item)
     try:
         os.remove("PERT/data/input_data.csv")

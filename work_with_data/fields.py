@@ -1,2 +1,2 @@
-input_fields = ["Task", "Predecessor", "Optimistic", "Nominal", "Pessimistic"]
-output_fields = ["Task", "Time", "Deviation"]
+input_fields = ["task_name", "predecessor", "optimistic", "nominal", "pessimistic"]
+output_fields = ["task_name", "time", "deviation"]

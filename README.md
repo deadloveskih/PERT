@@ -46,30 +46,47 @@ from PERT.calculations import *
 Example of interactive mode
 ```python
 from PERT.interactive import intercative
-#or from PERT import intercative
+# or from PERT import intercative
 
-interactive()
-#or interactive.interactive()
+interactive(csv_write=False, csv_read=False)
+# or interactive.interactive()
 
-#just write "help" for more information
+# just write "help" for more information
 ```
 
 Example of API using
 ```python
 from PERT import PERT
 from PERT.task import Task
+from PERT.calculations import *
 
-pert = PERT.getInstance()
-task = Task("task_name", "predecessor/another", "O(float)", "M(float)", "P(float)")
+# Task("task_name", "predecessor/another", "O(float)", "M(float)", "P(float)")
+
+pert = PERT.getInstance(csv_read=True)
+task = Task("task_name", "predecessor/another/etc", "1", "2", "3")
 pert.add_data(task)
-pert.print_data(task.task_name)
-pert.show_data()
-pert.del_data(task.task_name)
+print(pert.print_data(task.task_name))
+print(pert.show_data())
+pert.del_data(task.task_name) # also del_data(task["task_name"])
 
-pert.add_data("task_name", "predecessor/another", "O(float)", "M(float)", "P(float)")
+x: Task = pert.add_data("task_name", "predecessor/another/etc", "1", "2", "3")
+y: Task = pert.add_data("task_name1", "predecessor/another/etc", "1", "2", "3")
+print(x, y)
+print(pert.show_data())
 
-pert.summarize()
+print(calc_time_sum([x, y])) # calc_time_sum can work with Task object
+print(calc_deviation_sum([x, y])) # calc_deviation_sum can work with Task object
+
+print(pert.summarize())
 ```
+
+`PERT.getInstance()` and `interactive()` in default mode works only with cache.
+
+As safe mode you can use csv_write=False and csv_read=True. Data automatically will be load in cache,
+but you can't change csv files. All tasks in the current session will be added to the cache only.
+
+Also you can use csv_write=True and csv_read=False. Is it give you empty cache on start and then
+you can summarize cached tasks added in current session.
 
 ## Learn more
 [Wikipedia](https://en.wikipedia.org/wiki/PERT_distribution)

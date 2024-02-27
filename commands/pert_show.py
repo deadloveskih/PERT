@@ -10,13 +10,13 @@ def show_data() -> dict:
     for task in all_data:
         task = task[0] | task[1]
         task = Task(
-                        task["Task"],
-                        task["Predecessor"],
-                        task["Optimistic"],
-                        task["Nominal"],
-                        task["Pessimistic"],
-                        task["Time"],
-                        task["Deviation"]
+                        task["task_name"],
+                        task["predecessor"],
+                        task["optimistic"],
+                        task["nominal"],
+                        task["pessimistic"],
+                        task["time"],
+                        task["deviation"]
                     )
         
         tasks[task.task_name] = task

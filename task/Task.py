@@ -1,12 +1,14 @@
 class Task:
-    def __init__(self,
-                 task_name: str,
-                 predecessor: str,
-                 optimistic: str,
-                 nominal: str,
-                 pessimistic: str,
-                 time: str="",
-                 deviation: str="") -> None:
+    def __init__(
+                    self,
+                    task_name: str,
+                    predecessor: str,
+                    optimistic: str,
+                    nominal: str,
+                    pessimistic: str,
+                    time: str="",
+                    deviation: str=""
+                 ) -> None:
         
         self.task_name = task_name
         self.predecessor = predecessor

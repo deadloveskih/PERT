@@ -1,11 +1,23 @@
 from ..work_with_data import *
+from ..task import Task
 
 def print_data(task_name: str) -> dict:
-    input_data_buf = bufferize("data/input_data.csv")
-    output_data_buf = bufferize("data/output_data.csv")
+    input_data_buf = bufferize("PERT/data/input_data.csv")
+    output_data_buf = bufferize("PERT/data/output_data.csv")
     
-    input_data_task = [task for task in input_data_buf if task["Task"] == task_name].pop()
-    output_data_task = [task for task in output_data_buf if task["Task"] == task_name].pop()
+    input_data_task = [task for task in input_data_buf if task["task_name"] == task_name]
+    output_data_task = [task for task in output_data_buf if task["task_name"] == task_name]
 
-    result = input_data_task.items() | output_data_task.items()
-    return dict(result)
+    if input_data_task:
+        task = input_data_task[0] | output_data_task[0]
+        task = Task(
+                            task["task_name"],
+                            task["predecessor"],
+                            task["optimistic"],
+                            task["nominal"],
+                            task["pessimistic"],
+                            task["time"],
+                            task["deviation"]
+                        )
+        
+        return task
