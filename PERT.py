@@ -1,12 +1,16 @@
 from functools import singledispatchmethod
-from task import Task
-import commands
+from .task import Task
+from . import commands
+from .work_with_data.fields import input_fields, output_fields
+from .work_with_data.init_files import init_file
 
 class PERT:
 
     __singleton = None
 
     def __init__(self) -> None:
+        assert init_file("PERT/data/input_data.csv", input_fields)
+        assert init_file("PERT/data/output_data.csv", output_fields)
         self.__cache = None
         self.show_data()
     

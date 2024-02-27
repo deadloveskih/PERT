@@ -31,15 +31,44 @@ Also we can summarize for all tasks.
 
 ## Using
 ```
-git clone https://github.com/deadloveskih/PERT-Program-Evaluation-and-Review-Technique-.git
+git clone https://github.com/deadloveskih/PERT.git
 ```
-Open project in terminal and:
+Add PERT folder in your project.
+And import modules what you want use.
+```python
+from PERT import PERT
+from PERT.task import Task
+from PERT.interactive import intercative
+from PERT.commands import *
+from PERT.calculations import *
 ```
-python main
+
+Example of interactive mode
+```python
+from PERT.interactive import intercative
+#or from PERT import intercative
+
+interactive()
+#or interactive.interactive()
+
+#just write "help" for more information
 ```
-Then
-```
-pert: help
+
+Example of API using
+```python
+from PERT import PERT
+from PERT.task import Task
+
+pert = PERT.getInstance()
+task = Task("task_name", "predecessor/another", "O(float)", "M(float)", "P(float)")
+pert.add_data(task)
+pert.print_data(task.task_name)
+pert.show_data()
+pert.del_data(task.task_name)
+
+pert.add_data("task_name", "predecessor/another", "O(float)", "M(float)", "P(float)")
+
+pert.summarize()
 ```
 
 ## Learn more

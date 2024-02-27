@@ -13,7 +13,7 @@ def add_input_data(task: str, predecessor: str, optimistic: str, nominal: str, p
         print("Parametrs for 'add' should be float or integer")
         return 0
     try:
-        with open("data/input_data.csv", "a") as csv_file:
+        with open("PERT/data/input_data.csv", "a") as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=input_fields)
             writer.writerow({'Task': task, "Predecessor": predecessor, 'Optimistic': optimistic, "Nominal": nominal, "Pessimistic": pessimistic})
     except IOError:
@@ -22,12 +22,12 @@ def add_input_data(task: str, predecessor: str, optimistic: str, nominal: str, p
     return 1
 
 def del_input_data(task: str) -> None:
-    buffer_input_data = bufferize("data/input_data.csv")
+    buffer_input_data = bufferize("PERT/data/input_data.csv")
     for item in buffer_input_data:
         if item["Task"] == task:
             buffer_input_data.remove(item)
     try:
-        os.remove("data/input_data.csv")
-        assert init_file("data/input_data.csv", input_fields, buffer_input_data)
+        os.remove("PERT/data/input_data.csv")
+        assert init_file("PERT/data/input_data.csv", input_fields, buffer_input_data)
     except OSError:
         print("Error: failed del data from input_data")

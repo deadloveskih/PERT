@@ -1,9 +1,9 @@
-from work_with_data import *
-from task import Task
+from ..work_with_data import *
+from ..task import Task
 
 def show_data() -> dict:
-    input_data_buf = bufferize("data/input_data.csv")
-    output_data_buf = bufferize("data/output_data.csv")
+    input_data_buf = bufferize("PERT/data/input_data.csv")
+    output_data_buf = bufferize("PERT/data/output_data.csv")
 
     all_data = list(zip(input_data_buf, output_data_buf))
     tasks = dict()

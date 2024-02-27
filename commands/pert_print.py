@@ -1,4 +1,4 @@
-from work_with_data import *
+from ..work_with_data import *
 
 def print_data(task_name: str) -> dict:
     input_data_buf = bufferize("data/input_data.csv")

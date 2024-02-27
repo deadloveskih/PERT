@@ -5,11 +5,11 @@ class Task:
                  optimistic: str,
                  nominal: str,
                  pessimistic: str,
-                 time: str,
-                 deviation: str) -> None:
+                 time: str="",
+                 deviation: str="") -> None:
         
         self.task_name = task_name
-        self.predecessor = predecessor.split("/")
+        self.predecessor = predecessor
         self.optimistic = optimistic
         self.nominal = nominal
         self.pessimistic = pessimistic

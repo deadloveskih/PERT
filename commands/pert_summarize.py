@@ -1,5 +1,5 @@
-from work_with_data import *
-from calculations import *
+from ..work_with_data import *
+from ..calculations import *
 
 def summarize() -> dict:
     output_data_buf = bufferize("data/output_data.csv")
