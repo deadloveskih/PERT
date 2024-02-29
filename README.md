@@ -29,7 +29,7 @@ Also we can summarize for all tasks.
 > σ\left(\text{{sequence}}\right) = \sqrt{\sum_{} σ\left(\text{{task}}\right)^2}
 > ```
 
-## Using
+## Usage
 ```
 git clone https://github.com/deadloveskih/PERT.git
 ```
