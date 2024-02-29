@@ -17,12 +17,14 @@ class Task:
         self.pessimistic = pessimistic
         self.time = time
         self.deviation = deviation
+        self._followers = dict()
 
     def __repr__(self) -> str:
         string = f"""
     {"_"*40}
     Task: {self.task_name}
-    Predecessor: {self.predecessor}
+    Predecessor: {self.predecessor.keys()}
+    Follower: {self._followers.keys()}
     Optimistic: {self.optimistic}
     Nominal: {self.nominal}
     Pessimistic: {self.pessimistic}
@@ -33,5 +35,8 @@ class Task:
 
         return string
 
-    def __getitem__(self, value: str) -> any:
-        return self.__dict__[value]
+    def __getitem__(self, attr: str) -> any:
+        return self.__dict__[attr]
+    
+    def __setitem__(self, attr: str, value: object) -> None:
+        self.__setattr__(attr, value)

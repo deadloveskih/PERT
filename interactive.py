@@ -29,7 +29,7 @@ def help() -> None:
     print("\tprint summarize time and deviation of cached tasks", end="\n\n")
 
 def intercative(*, csv_write: bool, csv_read: bool) -> None:
-    pert = PERT.getInstance(csv_write, csv_read)
+    pert = PERT.getInstance(csv_write=csv_write, csv_read=csv_read)
 
     while((user_input := input("pert: ")) != "quit"):
         match user_input.split(" "):
