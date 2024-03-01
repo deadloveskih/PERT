@@ -74,8 +74,8 @@ y: Task = pert.add_data("task_name1", "predecessor/another/etc", "1", "2", "3")
 print(x, y)
 print(pert.show_data())
 
-print(calc_time_sum([x, y])) # calc_time_sum can work with Task object
-print(calc_deviation_sum([x, y])) # calc_deviation_sum can work with Task object
+print(calc_time_sum([x, y])) # calc_time_sum can work with Tasks list
+print(calc_deviation_sum([x, y])) # calc_deviation_sum can work with Tasks list
 
 print(pert.summarize())
 ```
@@ -87,6 +87,13 @@ but you can't change csv files. All tasks in the current session will be added t
 
 Also you can use csv_write=True and csv_read=False. Is it give you empty cache on start and then
 you can summarize cached tasks added in current session.
+
+## TO DO
+- [ ] Swithing to SQL or other database
+- [ ] Refactoring and optimize
+- [ ] Write documentation
+- [ ] Of course I should was write tests before write code (Automatic test)
+- [ ] Check for same names tasks
 
 ## Learn more
 [Wikipedia](https://en.wikipedia.org/wiki/PERT_distribution)
