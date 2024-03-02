@@ -49,13 +49,14 @@ class PERT:
         return task
 
     def del_data(self, task_name: str) -> None:
-        deleted = self.__cache.pop(task_name, "Task not found")
+        deleted = self.__cache.pop(task_name, None)
 
-        for follower in deleted["_followers"]:
-            self.__cache.get(follower)["predecessor"].pop(task_name)
+        if deleted:
+            for follower in deleted["_followers"]:
+                self.__cache.get(follower)["predecessor"].pop(task_name)
 
-        for predecessor in deleted["predecessor"]:
-            self.__cache.get(predecessor)["_followers"].pop(task_name)
+            for predecessor in deleted["predecessor"]:
+                self.__cache.get(predecessor)["_followers"].pop(task_name)
 
         if self.csv_write:
             commands.del_data(task_name)

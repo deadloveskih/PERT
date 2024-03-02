@@ -12,12 +12,12 @@ class Task:
         
         self.task_name = task_name
         self.predecessor = predecessor
+        self._followers = dict()
         self.optimistic = optimistic
         self.nominal = nominal
         self.pessimistic = pessimistic
         self.time = time
         self.deviation = deviation
-        self._followers = dict()
 
     def __repr__(self) -> str:
         string = f"""
